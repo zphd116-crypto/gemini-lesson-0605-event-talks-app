@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TechConf 2026 | Technical Talk Schedule</title>
+    <style>
+        :root {
+            --primary-color: #2563eb;
+            --secondary-color: #64748b;
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --tag-bg: #e2e8f0;
+            --tag-text: #475569;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.5;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .subtitle {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+        }
+
+        .search-container {
+            position: sticky;
+            top: 1rem;
+            z-index: 100;
+            margin-bottom: 2rem;
+            background: rgba(248, 250, 252, 0.8);
+            backdrop-filter: blur(8px);
+            padding: 0.5rem 0;
+        }
+
+        #categorySearch {
+            width: 100%;
+            padding: 1rem 1.5rem;
+            font-size: 1rem;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            background: white;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        #categorySearch:focus {
+            border-color: var(--primary-color);
+        }
+
+        .schedule {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 1.5rem;
+            box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1);
+            border-left: 6px solid var(--primary-color);
+            transition: transform 0.2s;
+        }
+
+        .card:hover {
+            transform: translateY(-2px);
+        }
+
+        .card.break {
+            background: #f1f5f9;
+            border-left-color: #94a3b8;
+            opacity: 0.8;
+        }
+
+        .time-badge {
+            display: inline-block;
+            background: var(--primary-color);
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .card.break .time-badge {
+            background: #64748b;
+        }
+
+        .talk-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin: 0 0 0.5rem 0;
+        }
+
+        .speakers {
+            font-weight: 500;
+            color: var(--text-main);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .speakers svg {
+            width: 16px;
+            height: 16px;
+            color: var(--text-muted);
+        }
+
+        .description {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin-bottom: 1.25rem;
+        }
+
+        .categories {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .tag {
+            background: var(--tag-bg);
+            color: var(--tag-text);
+            padding: 0.2rem 0.6rem;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.025em;
+        }
+
+        .transition-label {
+            text-align: center;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin: -0.5rem 0;
+            font-style: italic;
+        }
+
+        .no-results {
+            text-align: center;
+            padding: 3rem;
+            color: var(--text-muted);
+        }
+
+        @media (max-width: 640px) {
+            h1 { font-size: 1.8rem; }
+            .card { padding: 1rem; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>TechConf 2026</h1>
+        <p class="subtitle">Single Track, Infinite Possibilities</p>
+    </header>
+
+    <div class="search-container">
+        <input type="text" id="categorySearch" placeholder="Filter by category (e.g. Frontend, Backend, AI)...">
+    </div>
+
+    <div id="schedule" class="schedule">
+        <!-- Rendered by JS -->
+    </div>
+</div>
+
+<script>
+    const talks = [
+        {
+            id: 1,
+            title: "Architecture for Scalable Microservices",
+            speakers: ["Alice Smith"],
+            categories: ["Backend", "Architecture"],
+            startTime: "10:00 AM",
+            endTime: "11:00 AM",
+            duration: "60 min",
+            description: "Learn the core patterns for building resilient and horizontally scalable microservices in modern cloud environments."
+        },
+        {
+            id: 2,
+            title: "Deep Dive into React Server Components",
+            speakers: ["Bob Johnson"],
+            categories: ["Frontend", "React"],
+            startTime: "11:10 AM",
+            endTime: "12:10 PM",
+            duration: "60 min",
+            description: "An in-depth look at how Server Components are changing the way we think about data fetching and client-side state."
+        },
+        {
+            id: 3,
+            title: "Modern CSS Layouts with Grid and Subgrid",
+            speakers: ["Carol Williams"],
+            categories: ["Frontend", "CSS"],
+            startTime: "12:20 PM",
+            endTime: "1:20 PM",
+            duration: "60 min",
+            description: "Master the latest CSS features to build complex, responsive layouts with less code and better performance."
+        },
+        {
+            type: "break",
+            title: "Lunch Break",
+            startTime: "1:20 PM",
+            endTime: "2:20 PM",
+            description: "Networking and refueling."
+        },
+        {
+            id: 4,
+            title: "Securing Your CI/CD Pipelines",
+            speakers: ["David Brown"],
+            categories: ["DevOps", "Security"],
+            startTime: "2:20 PM",
+            endTime: "3:20 PM",
+            duration: "60 min",
+            description: "A practical guide to implementing security gates, secret management, and compliance checks in your automated workflows."
+        },
+        {
+            id: 5,
+            title: "Practical Machine Learning for Web Developers",
+            speakers: ["Eve Davis", "Xavier Woods"],
+            categories: ["AI", "JS"],
+            startTime: "3:30 PM",
+            endTime: "4:30 PM",
+            duration: "60 min",
+            description: "Bridge the gap between web development and AI. Integrate pre-trained models directly into your web applications."
+        },
+        {
+            id: 6,
+            title: "Effective GraphQL APIs",
+            speakers: ["Frank Miller"],
+            categories: ["API", "Backend"],
+            startTime: "4:40 PM",
+            endTime: "5:40 PM",
+            duration: "60 min",
+            description: "Best practices for schema design, resolvers optimization, and managing large-scale GraphQL federations."
+        }
+    ];
+
+    const scheduleEl = document.getElementById('schedule');
+    const searchInput = document.getElementById('categorySearch');
+
+    function renderSchedule(filter = '') {
+        scheduleEl.innerHTML = '';
+        const query = filter.toLowerCase().trim();
+        
+        const filteredTalks = talks.filter(item => {
+            if (item.type === 'break') return true;
+            if (!query) return true;
+            return item.categories.some(cat => cat.toLowerCase().includes(query));
+        });
+
+        // Hide breaks if they are isolated by filtering
+        let displayItems = filteredTalks;
+        if (query) {
+            // If we are searching, we only show talks that match. 
+            // Usually breaks are hidden during search unless they match (which they won't).
+            displayItems = filteredTalks.filter(item => item.type !== 'break');
+        }
+
+        if (displayItems.length === 0) {
+            scheduleEl.innerHTML = '<div class="no-results">No talks found matching that category.</div>';
+            return;
+        }
+
+        displayItems.forEach((item, index) => {
+            const isBreak = item.type === 'break';
+            const card = document.createElement('div');
+            card.className = `card ${isBreak ? 'break' : ''}`;
+            
+            let html = `
+                <span class="time-badge">${item.startTime} - ${item.endTime}</span>
+                <h2 class="talk-title">${item.title}</h2>
+            `;
+
+            if (!isBreak) {
+                html += `
+                    <div class="speakers">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                        ${item.speakers.join(' & ')}
+                    </div>
+                    <p class="description">${item.description}</p>
+                    <div class="categories">
+                        ${item.categories.map(cat => `<span class="tag">${cat}</span>`).join('')}
+                    </div>
+                `;
+            } else {
+                html += `<p class="description">${item.description}</p>`;
+            }
+
+            card.innerHTML = html;
+            scheduleEl.appendChild(card);
+
+            // Add transition labels between talks (not after the last one or around breaks)
+            if (index < displayItems.length - 1 && !isBreak && displayItems[index+1].type !== 'break') {
+                const transition = document.createElement('div');
+                transition.className = 'transition-label';
+                transition.innerText = '10 minute transition';
+                scheduleEl.appendChild(transition);
+            }
+        });
+    }
+
+    searchInput.addEventListener('input', (e) => {
+        renderSchedule(e.target.value);
+    });
+
+    // Initial render
+    renderSchedule();
+</script>
+
+</body>
+</html>
